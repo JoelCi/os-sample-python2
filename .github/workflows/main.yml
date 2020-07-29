@@ -1,0 +1,26 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Example workflow for Openshift Action
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  run:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: OpenShift Action
+      uses: redhat-developer/openshift-actions@v1.1
+      with:
+        version: 'latest'
+        openshift_server_url: ${{ secrets.OPENSHIFT_SERVER_URL }}
+        parameters: '{"apitoken": "${{ secrets.API_TOKEN }}", "acceptUntrustedCerts": "true"}'
+        run: |          
+          oc login --token=${{ secrets.API_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER_URL }}
+          oc get pods
