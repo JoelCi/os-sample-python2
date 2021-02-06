@@ -37,3 +37,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        args: >
+            -Dsonar.organization=joelci
+            -Dsonar.projectKey=JoelCi_os-sample-python2
